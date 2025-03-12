@@ -26,32 +26,34 @@
     for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
     })(window,document,'script','FundraiseUp','AEMZUDUM');</script>
 
-    <!-- Donation button (FundraiseUp will generate it dynamically) -->
+    <!-- Placeholder for Donate button -->
     <a href="#XJKDHSTQ" style="display: none;"></a>
 
-    <!-- JavaScript for tracking Donate button click -->
+    <!-- JavaScript to detect dynamically added button -->
     <script>
-      function waitForButton() {
-          let button = document.querySelector("a[href='#XJKDHSTQ']");
-          
-          if (button) {
-              console.log("✅ Donate button found!");
-              button.style.display = "block"; // Показываем кнопку
-              button.addEventListener("click", function() {
-                  console.log("✅ Donate button clicked!");
-                  gtag('event', 'open_checkout', { 
-                      'event_category': 'donation', 
-                      'event_label': 'Donate Button' 
+      document.addEventListener("DOMContentLoaded", function() {
+          console.log("🔍 Monitoring DOM for the Donate button...");
+
+          const observer = new MutationObserver(mutations => {
+              mutations.forEach(mutation => {
+                  mutation.addedNodes.forEach(node => {
+                      if (node.tagName === "A" && node.getAttribute("href") === "#XJKDHSTQ") {
+                          console.log("✅ Donate button detected!");
+                          node.style.display = "block"; // Показываем кнопку
+                          node.addEventListener("click", function() {
+                              console.log("✅ Donate button clicked!");
+                              gtag('event', 'open_checkout', { 
+                                  'event_category': 'donation', 
+                                  'event_label': 'Donate Button' 
+                              });
+                          });
+                          observer.disconnect(); // Останавливаем наблюдение после обнаружения кнопки
+                      }
                   });
               });
-          } else {
-              console.log("⏳ Waiting for Donate button...");
-              setTimeout(waitForButton, 1000); // Ждём появления кнопки
-          }
-      }
+          });
 
-      document.addEventListener("DOMContentLoaded", function() {
-          waitForButton();
+          observer.observe(document.body, { childList: true, subtree: true });
       });
     </script>
 
