@@ -1,62 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fundraise Up Demo</title>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      console.log("🔍 Monitoring DOM for the Donate button...");
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MDYDRQMVT0"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-MDYDRQMVT0');
-    </script>
-</head>
-<body>
-    <h1>Welcome to Fundraise Up Demo</h1>
-
-    <!-- Fundraise Up script -->
-    <script>(function(w,d,s,n,a){if(!w[n]){var l='call,catch,on,once,set,then,track'
-    .split(','),i,o=function(n){return'function'==typeof n?o.l.push([arguments])&&o
-    :function(){return o.l.push([n,arguments])&&o}},t=d.getElementsByTagName(s)[0],
-    j=d.createElement(s);j.async=!0;j.src='https://cdn.fundraiseup.com/widget/'+a;
-    t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=4;o.h=w.location.href;o.l=[];
-    for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
-    })(window,document,'script','FundraiseUp','AEMZUDUM');</script>
-
-    <!-- Placeholder for Donate button -->
-    <a href="#XJKDHSTQ" style="display: none;"></a>
-
-    <!-- JavaScript to detect dynamically added button -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          console.log("🔍 Monitoring DOM for the Donate button...");
-
-          const observer = new MutationObserver(mutations => {
-              mutations.forEach(mutation => {
-                  mutation.addedNodes.forEach(node => {
-                      if (node.tagName === "A" && node.getAttribute("href") === "#XJKDHSTQ") {
-                          console.log("✅ Donate button detected!");
-                          node.style.display = "block"; // Показываем кнопку
-                          node.addEventListener("click", function() {
-                              console.log("✅ Donate button clicked!");
-                              gtag('event', 'open_checkout', { 
-                                  'event_category': 'donation', 
-                                  'event_label': 'Donate Button' 
-                              });
+      const observer = new MutationObserver(mutations => {
+          mutations.forEach(mutation => {
+              mutation.addedNodes.forEach(node => {
+                  if (node.tagName === "A" && node.getAttribute("href") === "#XJKDHSTQ") {
+                      console.log("✅ Donate button detected!");
+                      node.style.display = "block"; // Показываем кнопку
+                      node.addEventListener("click", function() {
+                          console.log("✅ Donate button clicked!");
+                          gtag('event', 'open_checkout', { 
+                              'event_category': 'donation', 
+                              'event_label': 'Donate Button' 
                           });
-                          observer.disconnect(); // Останавливаем наблюдение после обнаружения кнопки
-                      }
-                  });
+                      });
+                      observer.disconnect(); // Останавливаем наблюдение после обнаружения кнопки
+                  }
               });
           });
-
-          observer.observe(document.body, { childList: true, subtree: true });
       });
-    </script>
 
-</body>
-</html>
+      // Ожидаем появления кнопки в течение 10 секунд
+      setTimeout(() => {
+          let button = document.querySelector("a[href='#XJKDHSTQ']");
+          if (button) {
+              console.log("✅ Button found without observer!");
+              button.style.display = "block";
+              button.addEventListener("click", function() {
+                  console.log("✅ Donate button clicked!");
+                  gtag('event', 'open_checkout', { 
+                      'event_category': 'donation', 
+                      'event_label': 'Donate Button' 
+                  });
+              });
+          } else {
+              console.log("❌ Button not found even after timeout!");
+          }
+      }, 10000);
+
+      observer.observe(document.body, { childList: true, subtree: true });
+  });
+</script>
 
