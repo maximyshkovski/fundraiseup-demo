@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MDYDRQMVT0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-MDYDRQMVT0');
-</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fundraise Up Demo</title>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MDYDRQMVT0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-MDYDRQMVT0');
+    </script>
 </head>
 <body>
     <h1>Welcome to Fundraise Up Demo</h1>
-    
+
     <!-- Fundraise Up script -->
     <script>(function(w,d,s,n,a){if(!w[n]){var l='call,catch,on,once,set,then,track'
     .split(','),i,o=function(n){return'function'==typeof n?o.l.push([arguments])&&o
@@ -24,9 +25,11 @@
     t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=4;o.h=w.location.href;o.l=[];
     for(i=0;i<7;i++)o[l[i]]=o(l[i]);w[n]=o}
     })(window,document,'script','FundraiseUp','AEMZUDUM');</script>
-    
+
     <!-- Donation button -->
-    <a href="#XJKDHSTQ" style="display: block; background-color: #4285F4; color: white; 
+    <a href="#XJKDHSTQ" 
+       onclick="gtag('event', 'open_checkout', { 'event_category': 'donation', 'event_label': 'Donate Button' });"
+       style="display: block; background-color: #4285F4; color: white; 
        text-decoration: none; padding: 10px 20px; border-radius: 5px; font-size: 20px; 
        text-align: center; width: 200px; margin: 20px auto; display: block;">
         Donate
