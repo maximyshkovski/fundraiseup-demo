@@ -7,7 +7,17 @@
               mutation.addedNodes.forEach(node => {
                   if (node.tagName === "A" && node.getAttribute("href") === "#XJKDHSTQ") {
                       console.log("✅ Donate button detected!");
-                      node.style.display = "block"; // Показываем кнопку
+                      node.style.display = "inline-block"; // Показываем кнопку (если вдруг скрылась)
+                      node.style.backgroundColor = "#4285F4";
+                      node.style.color = "white";
+                      node.style.textDecoration = "none";
+                      node.style.padding = "10px 20px";
+                      node.style.borderRadius = "5px";
+                      node.style.fontSize = "20px";
+                      node.style.textAlign = "center";
+                      node.style.margin = "20px auto";
+                      node.style.cursor = "pointer";
+
                       node.addEventListener("click", function() {
                           console.log("✅ Donate button clicked!");
                           gtag('event', 'open_checkout', { 
@@ -15,6 +25,7 @@
                               'event_label': 'Donate Button' 
                           });
                       });
+
                       observer.disconnect(); // Останавливаем наблюдение после обнаружения кнопки
                   }
               });
@@ -26,7 +37,17 @@
           let button = document.querySelector("a[href='#XJKDHSTQ']");
           if (button) {
               console.log("✅ Button found without observer!");
-              button.style.display = "block";
+              button.style.display = "inline-block"; // Если кнопка скрыта, делаем её видимой
+              button.style.backgroundColor = "#4285F4";
+              button.style.color = "white";
+              button.style.textDecoration = "none";
+              button.style.padding = "10px 20px";
+              button.style.borderRadius = "5px";
+              button.style.fontSize = "20px";
+              button.style.textAlign = "center";
+              button.style.margin = "20px auto";
+              button.style.cursor = "pointer";
+
               button.addEventListener("click", function() {
                   console.log("✅ Donate button clicked!");
                   gtag('event', 'open_checkout', { 
