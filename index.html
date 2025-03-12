@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fundraise Up Demo</title>
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MDYDRQMVT0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-MDYDRQMVT0');
-</script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MDYDRQMVT0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-MDYDRQMVT0');
+    </script>
 </head>
 <body>
     <h1>Welcome to Fundraise Up Demo</h1>
@@ -26,36 +27,38 @@
     })(window,document,'script','FundraiseUp','AEMZUDUM');</script>
 
     <!-- Donation button -->
-<a href="#XJKDHSTQ"
-   onclick="gtag('event','open_checkout',{'event_category':'donation','event_label':'Donate Button'});"
-   style="display: block; background-color: #4285F4; color: white;
-   text-decoration: none; padding: 10px 20px; border-radius: 5px; font-size: 20px;
-   text-align: center; width: 200px; margin: 20px auto; display: block;">
-    Donate
-</a>
-<script>
-  function waitForButton() {
-      let button = document.querySelector("a[href='#XJKDHSTQ']");
-      
-      if (button) {
-          console.log("Donate button found!");
-          button.addEventListener("click", function() {
-              console.log("Donate button clicked!");
-              gtag('event', 'open_checkout', { 
-                  'event_category': 'donation', 
-                  'event_label': 'Donate Button' 
-              });
-          });
-      } else {
-          console.log("Waiting for Donate button...");
-          setTimeout(waitForButton, 500); // Проверяем снова через 500 мс
-      }
-  }
+    <a href="#XJKDHSTQ"
+       id="donate-button"
+       style="display: block; background-color: #4285F4; color: white;
+       text-decoration: none; padding: 10px 20px; border-radius: 5px; font-size: 20px;
+       text-align: center; width: 200px; margin: 20px auto; display: block;">
+        Donate
+    </a>
 
-  document.addEventListener("DOMContentLoaded", function() {
-      waitForButton();
-  });
-</script>
+    <!-- JavaScript for tracking Donate button click -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          function waitForButton() {
+              let button = document.getElementById("donate-button");
+              
+              if (button) {
+                  console.log("Donate button found!");
+                  button.addEventListener("click", function() {
+                      console.log("Donate button clicked!");
+                      gtag('event', 'open_checkout', { 
+                          'event_category': 'donation', 
+                          'event_label': 'Donate Button' 
+                      });
+                  });
+              } else {
+                  console.log("Waiting for Donate button...");
+                  setTimeout(waitForButton, 500); // Проверяем снова через 500 мс
+              }
+          }
+          waitForButton();
+      });
+    </script>
+
 </body>
 </html>
 
