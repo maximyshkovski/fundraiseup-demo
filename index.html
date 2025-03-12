@@ -33,6 +33,29 @@
    text-align: center; width: 200px; margin: 20px auto; display: block;">
     Donate
 </a>
+<script>
+  function waitForButton() {
+      let button = document.querySelector("a[href='#XJKDHSTQ']");
+      
+      if (button) {
+          console.log("Donate button found!");
+          button.addEventListener("click", function() {
+              console.log("Donate button clicked!");
+              gtag('event', 'open_checkout', { 
+                  'event_category': 'donation', 
+                  'event_label': 'Donate Button' 
+              });
+          });
+      } else {
+          console.log("Waiting for Donate button...");
+          setTimeout(waitForButton, 500); // Проверяем снова через 500 мс
+      }
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+      waitForButton();
+  });
+</script>
 </body>
 </html>
 
