@@ -57,21 +57,45 @@
 
               button.addEventListener("click", function() {
                   console.log("✅ Donate button clicked!");
+                  
+                  // Отправляем событие открытия чекаута в GA
                   gtag('event', 'open_checkout', { 
                       'event_category': 'donation', 
                       'event_label': 'Donate Button' 
                   });
 
-                  // Ждём 5 секунд и отправляем тестовое пожертвование
-                  setTimeout(() => {
-                      console.log("💰 Simulating purchase of $700...");
-                      gtag('event', 'purchase', { 
-                          'event_category': 'donation', 
-                          'event_label': 'FundraiseUp Test', 
-                          'value': 700, 
-                          'currency': 'USD'
+                  // Проверяем, загружен ли Fundraise Up
+                  if (typeof FundraiseUp !== "undefined") {
+                      console.log("✅ FundraiseUp script detected!");
+                      FundraiseUp.set('sandbox', true);
+                      console.log("🔄 Enabling Sandbox mode...");
+
+                      // Открываем чекаут
+                      FundraiseUp.track('donation', {
+                          amount_editable: true, // Позволяем пользователю вводить сумму
+                          currency: "USD"
                       });
-                  }, 5000);
+
+                      console.log("💰 Checkout opened - waiting for user input...");
+
+                      // Отслеживаем успешное пожертвование
+                      FundraiseUp.on('donation', function(donation) {
+                          console.log("✅ Donation completed!", donation);
+
+                          // Отправляем событие в Google Analytics
+                          gtag('event', 'purchase', { 
+                              'event_category': 'donation', 
+                              'event_label': 'FundraiseUp Checkout', 
+                              'value': donation.amount, 
+                              'currency': donation.currency
+                          });
+
+                          console.log(`💰 Donation of ${donation.amount} ${donation.currency} sent to GA`);
+                      });
+
+                  } else {
+                      console.error("❌ FundraiseUp is not defined! Check if the script is loaded.");
+                  }
               });
           } else {
               console.error("❌ Donate button not found!");
