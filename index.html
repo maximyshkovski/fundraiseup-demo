@@ -35,7 +35,7 @@
             for(i=0;i<7;i++)o[l[i]]=o(l[i]);
             w[n]=o;
         }
-    })(window,document,'script','FundraiseUp','TEST1234'); // <-- Используем тестовый ID
+    })(window,document,'script','DEMO1234'); // <-- Используем тестовый ID
     </script>
 
     <!-- Donation button -->
@@ -46,7 +46,7 @@
         Donate
     </button>
 
-    <!-- JavaScript для открытия чекаута и отправки события в GA -->
+    <!-- JavaScript для открытия чекаута и отправки событий в GA -->
     <script>
       document.addEventListener("DOMContentLoaded", function() {
           console.log("🔍 Monitoring DOM for the Donate button...");
@@ -62,23 +62,16 @@
                       'event_label': 'Donate Button' 
                   });
 
-                  // Проверяем, загружен ли Fundraise Up
-                  if (typeof FundraiseUp !== "undefined") {
-                      console.log("✅ FundraiseUp script detected!");
-
-                      // Включаем тестовый режим
-                      FundraiseUp.set('sandbox', true);
-                      console.log("🔄 Enabling Sandbox mode...");
-
-                      // Открываем чекаут
-                      FundraiseUp.track('donation', {
-                          amount: 700, 
-                          currency: "USD"
+                  // Ждём 5 секунд и отправляем тестовое пожертвование
+                  setTimeout(() => {
+                      console.log("💰 Simulating purchase of $700...");
+                      gtag('event', 'purchase', { 
+                          'event_category': 'donation', 
+                          'event_label': 'FundraiseUp Test', 
+                          'value': 700, 
+                          'currency': 'USD'
                       });
-                      console.log("💰 Opening checkout for $700...");
-                  } else {
-                      console.error("❌ FundraiseUp is not defined! Check if the script is loaded.");
-                  }
+                  }, 5000);
               });
           } else {
               console.error("❌ Donate button not found!");
