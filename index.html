@@ -68,7 +68,7 @@
             text-align: left; /* Выравнивание заголовков влево */
         }
 
-        input, select {
+        input {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
@@ -76,7 +76,7 @@
             border-radius: 5px;
             font-size: 16px;
             display: block;
-            text-align: left; /* Выравнивание текста внутри полей */
+            text-align: left;
         }
 
         button {
@@ -107,25 +107,17 @@
     <div id="fake-checkout">
         <h2 style="text-align: left;">Enter Donation Details</h2>
 
-        <label for="donation-amount">Amount:</label>
-        <input type="number" id="donation-amount" placeholder="Enter amount">
-
-        <label for="donation-currency">Currency:</label>
-        <select id="donation-currency">
-            <option value="USD">USD - US Dollar</option>
-            <option value="EUR">EUR - Euro</option>
-            <option value="GBP">GBP - British Pound</option>
-            <option value="ARS">ARS - Argentine Peso</option>
-        </select>
+        <label for="donation-amount">Amount (USD):</label>
+        <input type="number" id="donation-amount" placeholder="Enter amount" min="1">
 
         <label for="card-number">Card Number:</label>
-        <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+        <input type="text" id="card-number" placeholder="1111 1111 1111 1111" maxlength="19">
 
         <label for="card-expiry">Expiry Date (MM/YY):</label>
-        <input type="text" id="card-expiry" placeholder="MM/YY">
+        <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5">
 
         <label for="card-cvc">CVC:</label>
-        <input type="text" id="card-cvc" placeholder="CVC">
+        <input type="text" id="card-cvc" placeholder="CVC" maxlength="3">
 
         <button id="confirm-donation">Confirm Donation</button>
     </div>
@@ -139,6 +131,25 @@
           let checkout = document.getElementById("fake-checkout");
           let overlay = document.getElementById("overlay");
           let confirmButton = document.getElementById("confirm-donation");
+
+          let cardNumberInput = document.getElementById("card-number");
+          let cardExpiryInput = document.getElementById("card-expiry");
+
+          // Форматирование номера карты (разделение по 4 цифры)
+          cardNumberInput.addEventListener("input", function(e) {
+              let value = e.target.value.replace(/\D/g, ""); // Удаляем всё, кроме цифр
+              value = value.match(/.{1,4}/g)?.join(" ") || value; // Разбиваем по 4 цифры
+              e.target.value = value;
+          });
+
+          // Форматирование даты окончания карты (MM/YY)
+          cardExpiryInput.addEventListener("input", function(e) {
+              let value = e.target.value.replace(/\D/g, ""); // Удаляем всё, кроме цифр
+              if (value.length >= 2) {
+                  value = value.substring(0, 2) + "/" + value.substring(2, 4);
+              }
+              e.target.value = value.substring(0, 5); // Обрезаем до MM/YY
+          });
 
           if (button) {
               console.log("✅ Donate button found!");
@@ -159,7 +170,6 @@
 
               confirmButton.addEventListener("click", function() {
                   let amount = document.getElementById("donation-amount").value;
-                  let currency = document.getElementById("donation-currency").value;
                   let cardNumber = document.getElementById("card-number").value;
                   let cardExpiry = document.getElementById("card-expiry").value;
                   let cardCVC = document.getElementById("card-cvc").value;
@@ -174,7 +184,7 @@
                       return;
                   }
 
-                  console.log(`✅ Fake donation of ${amount} ${currency} confirmed with card ${cardNumber}`);
+                  console.log(`✅ Fake donation of $${amount} USD confirmed with card ${cardNumber}`);
                   
                   // Закрываем фейковый чекаут
                   checkout.style.display = "none";
@@ -185,10 +195,10 @@
                       'event_category': 'donation', 
                       'event_label': 'Fake Checkout', 
                       'value': parseFloat(amount), 
-                      'currency': currency
+                      'currency': 'USD'
                   });
 
-                  console.log(`💰 Donation of ${amount} ${currency} sent to GA`);
+                  console.log(`💰 Donation of $${amount} USD sent to GA`);
               });
 
           } else {
