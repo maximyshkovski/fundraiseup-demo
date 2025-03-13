@@ -20,6 +20,7 @@
     <!-- Fundraise Up script -->
     <script>
     (function(w,d,s,n,a){
+        a = "SANDBOX1234"; // <-- Указываем тестовый ID ЯВНО
         if(!w[n]){
             var l='call,catch,on,once,set,then,track'.split(','),
             i,o=function(n){return'function'==typeof n?o.l.push([arguments])&&o
@@ -35,7 +36,7 @@
             for(i=0;i<7;i++)o[l[i]]=o(l[i]);
             w[n]=o;
         }
-    })(window,document,'script','DEMO1234'); // <-- Используем тестовый ID
+    })(window,document,'script','FundraiseUp');
     </script>
 
     <!-- Donation button -->
@@ -70,9 +71,9 @@
                       FundraiseUp.set('sandbox', true);
                       console.log("🔄 Enabling Sandbox mode...");
 
-                      // Открываем чекаут
-                      FundraiseUp.track('donation', {
-                          amount_editable: true, // Позволяем пользователю вводить сумму
+                      // Открываем чекаут (пользователь вводит сумму и данные карты)
+                      FundraiseUp.track('checkout', {
+                          amount_editable: true,
                           currency: "USD"
                       });
 
