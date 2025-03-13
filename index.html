@@ -1,53 +1,59 @@
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-      console.log("🔍 Monitoring DOM for the Donate button...");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundraise Up Demo</title>
 
-      const observer = new MutationObserver(mutations => {
-          mutations.forEach(mutation => {
-              mutation.addedNodes.forEach(node => {
-                  if (node.tagName === "A" && node.getAttribute("href") === "#XJKDHSTQ") {
-                      console.log("✅ Donate button detected!");
-                      node.style.display = "inline-block"; // Показываем кнопку (если вдруг скрылась)
-                      node.style.backgroundColor = "#4285F4";
-                      node.style.color = "white";
-                      node.style.textDecoration = "none";
-                      node.style.padding = "10px 20px";
-                      node.style.borderRadius = "5px";
-                      node.style.fontSize = "20px";
-                      node.style.textAlign = "center";
-                      node.style.margin = "20px auto";
-                      node.style.cursor = "pointer";
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MDYDRQMVT0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-MDYDRQMVT0');
+    </script>
+</head>
+<body>
+    <h1>Welcome to Fundraise Up Demo</h1>
 
-                      node.addEventListener("click", function() {
-                          console.log("✅ Donate button clicked!");
-                          gtag('event', 'open_checkout', { 
-                              'event_category': 'donation', 
-                              'event_label': 'Donate Button' 
-                          });
-                      });
+    <!-- Fundraise Up script -->
+    <script>
+    (function(w,d,s,n,a){
+        if(!w[n]){
+            var l='call,catch,on,once,set,then,track'.split(','),
+            i,o=function(n){return'function'==typeof n?o.l.push([arguments])&&o
+            :function(){return o.l.push([n,arguments])&&o}},t=d.getElementsByTagName(s)[0],
+            j=d.createElement(s);
+            j.async=!0;
+            j.src='https://cdn.fundraiseup.com/widget/'+a;
+            t.parentNode.insertBefore(j,t);
+            o.s=Date.now();
+            o.v=4;
+            o.h=w.location.href;
+            o.l=[];
+            for(i=0;i<7;i++)o[l[i]]=o(l[i]);
+            w[n]=o;
+        }
+    })(window,document,'script','FundraiseUp','TEST1234'); // <-- Пробуем тестовый ID
+    </script>
 
-                      observer.disconnect(); // Останавливаем наблюдение после обнаружения кнопки
-                  }
-              });
-          });
-      });
+    <!-- Donation button -->
+    <a id="donate-button" href="#XJKDHSTQ"
+       style="display: block; background-color: #4285F4; color: white;
+       text-decoration: none; padding: 10px 20px; border-radius: 5px; font-size: 20px;
+       text-align: center; width: 200px; margin: 20px auto; display: block;">
+        Donate
+    </a>
 
-      // Ожидаем появления кнопки в течение 10 секунд
-      setTimeout(() => {
-          let button = document.querySelector("a[href='#XJKDHSTQ']");
+    <!-- JavaScript to track Donate button click -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          console.log("🔍 Monitoring DOM for the Donate button...");
+
+          let button = document.getElementById("donate-button");
           if (button) {
-              console.log("✅ Button found without observer!");
-              button.style.display = "inline-block"; // Если кнопка скрыта, делаем её видимой
-              button.style.backgroundColor = "#4285F4";
-              button.style.color = "white";
-              button.style.textDecoration = "none";
-              button.style.padding = "10px 20px";
-              button.style.borderRadius = "5px";
-              button.style.fontSize = "20px";
-              button.style.textAlign = "center";
-              button.style.margin = "20px auto";
-              button.style.cursor = "pointer";
-
+              console.log("✅ Donate button found!");
               button.addEventListener("click", function() {
                   console.log("✅ Donate button clicked!");
                   gtag('event', 'open_checkout', { 
@@ -56,11 +62,11 @@
                   });
               });
           } else {
-              console.log("❌ Button not found even after timeout!");
+              console.log("❌ Donate button not found!");
           }
-      }, 10000);
+      });
+    </script>
 
-      observer.observe(document.body, { childList: true, subtree: true });
-  });
-</script>
+</body>
+</html>
 
