@@ -15,6 +15,25 @@
     </script>
 
     <style>
+        /* Общие стили */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        
+        /* Кнопка Donate слева */
+        #donate-button {
+            background-color: #4285F4;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            text-align: left;
+            display: block;
+            cursor: pointer;
+            margin: 20px 0; /* Отступ сверху и снизу */
+        }
+
         /* Стили для модального окна */
         #fake-checkout {
             display: none;
@@ -26,9 +45,11 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            text-align: left;
             width: 320px;
         }
+
+        /* Затемнённый фон */
         #overlay {
             display: none;
             position: fixed;
@@ -38,6 +59,15 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
         }
+
+        /* Стили полей и подписей */
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: left; /* Выравнивание заголовков влево */
+        }
+
         input, select {
             width: 100%;
             padding: 10px;
@@ -45,7 +75,9 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
+            display: block;
         }
+
         button {
             width: 100%;
             padding: 10px;
@@ -54,6 +86,7 @@
             font-size: 16px;
             cursor: pointer;
         }
+
         #confirm-donation {
             background-color: #28a745;
             color: white;
@@ -63,10 +96,8 @@
 <body>
     <h1>Welcome to Fundraise Up Demo</h1>
 
-    <!-- Donation button -->
-    <button id="donate-button" style="background-color: #4285F4; color: white; padding: 10px 20px; border-radius: 5px; font-size: 20px; text-align: center; width: 200px; margin: 20px auto; display: block; cursor: pointer;">
-        Donate
-    </button>
+    <!-- Donation button (слева) -->
+    <button id="donate-button">Donate</button>
 
     <!-- Фоновый затемнитель -->
     <div id="overlay"></div>
@@ -74,10 +105,11 @@
     <!-- Fake Checkout Popup -->
     <div id="fake-checkout">
         <h2>Enter Donation Details</h2>
-        <label>Amount:</label>
+
+        <label for="donation-amount">Amount:</label>
         <input type="number" id="donation-amount" placeholder="Enter amount">
 
-        <label>Currency:</label>
+        <label for="donation-currency">Currency:</label>
         <select id="donation-currency">
             <option value="USD">USD - US Dollar</option>
             <option value="EUR">EUR - Euro</option>
@@ -85,13 +117,13 @@
             <option value="ARS">ARS - Argentine Peso</option>
         </select>
 
-        <label>Card Number:</label>
+        <label for="card-number">Card Number:</label>
         <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
 
-        <label>Expiry Date (MM/YY):</label>
+        <label for="card-expiry">Expiry Date (MM/YY):</label>
         <input type="text" id="card-expiry" placeholder="MM/YY">
 
-        <label>CVC:</label>
+        <label for="card-cvc">CVC:</label>
         <input type="text" id="card-cvc" placeholder="CVC">
 
         <button id="confirm-donation">Confirm Donation</button>
