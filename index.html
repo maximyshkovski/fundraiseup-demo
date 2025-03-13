@@ -38,6 +38,11 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
         }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -56,9 +61,21 @@
 
     <!-- Fake Checkout Popup -->
     <div id="fake-checkout">
-        <h2>Enter Donation Amount</h2>
-        <input type="number" id="donation-amount" placeholder="Enter amount" style="width: 100%; padding: 10px;">
-        <button id="confirm-donation" style="margin-top: 10px; padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        <h2>Enter Donation Details</h2>
+        <input type="number" id="donation-amount" placeholder="Enter amount">
+        
+        <select id="donation-currency">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="ARS">ARS</option>
+        </select>
+        
+        <input type="text" id="card-number" placeholder="Enter card number (fake)">
+        <input type="text" id="card-expiry" placeholder="MM/YY">
+        <input type="text" id="card-cvc" placeholder="CVC">
+
+        <button id="confirm-donation" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
             Confirm Donation
         </button>
     </div>
@@ -92,12 +109,22 @@
 
               confirmButton.addEventListener("click", function() {
                   let amount = document.getElementById("donation-amount").value;
+                  let currency = document.getElementById("donation-currency").value;
+                  let cardNumber = document.getElementById("card-number").value;
+                  let cardExpiry = document.getElementById("card-expiry").value;
+                  let cardCVC = document.getElementById("card-cvc").value;
+
                   if (!amount || amount <= 0) {
                       alert("Please enter a valid amount");
                       return;
                   }
 
-                  console.log(`✅ Fake donation of $${amount} confirmed!`);
+                  if (!cardNumber || !cardExpiry || !cardCVC) {
+                      alert("Please enter valid card details");
+                      return;
+                  }
+
+                  console.log(`✅ Fake donation of ${amount} ${currency} confirmed with card ${cardNumber}`);
                   
                   // Закрываем фейковый чекаут
                   checkout.style.display = "none";
@@ -108,10 +135,10 @@
                       'event_category': 'donation', 
                       'event_label': 'Fake Checkout', 
                       'value': parseFloat(amount), 
-                      'currency': 'USD'
+                      'currency': currency
                   });
 
-                  console.log(`💰 Donation of ${amount} USD sent to GA`);
+                  console.log(`💰 Donation of ${amount} ${currency} sent to GA`);
               });
 
           } else {
