@@ -21,21 +21,23 @@
             padding: 20px;
         }
         
-        /* Кнопка Donate слева */
+        /* Кнопка Donate (по центру синего поля) */
         #donate-button {
             background-color: #4285F4;
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
             font-size: 18px;
-            text-align: left;
-            display: block;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
-            margin: 20px 0; /* Отступ сверху и снизу */
-            width: 150px; /* Четкий размер */
+            width: 150px;
+            height: 50px;
         }
 
-        /* Стили для модального окна */
+        /* Центрируем модальное окно */
         #fake-checkout {
             display: none;
             position: fixed;
@@ -43,10 +45,11 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            width: 350px;
+            width: 320px;
+            text-align: left; /* Все элементы выровнены влево */
         }
 
         /* Затемнённый фон */
@@ -60,16 +63,17 @@
             background: rgba(0, 0, 0, 0.5);
         }
 
-        /* Стили полей и подписей */
+        /* Заголовки полей */
         label {
             display: block;
             font-weight: bold;
             margin-top: 10px;
-            text-align: left; /* Выравнивание заголовков влево */
+            text-align: left;
         }
 
+        /* Поля ввода */
         input {
-            width: 100%;
+            width: calc(100% - 20px); /* Уменьшил ширину, чтобы не выходили за границы */
             padding: 10px;
             margin-top: 5px;
             border: 1px solid #ccc;
@@ -79,26 +83,28 @@
             text-align: left;
         }
 
-        button {
+        /* Кнопка Confirm Donation (по центру) */
+        #confirm-donation {
             width: 100%;
             padding: 10px;
+            margin-top: 15px;
             border: none;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
-        }
-
-        #confirm-donation {
             background-color: #28a745;
             color: white;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <h1>Welcome to Fundraise Up Demo</h1>
 
-    <!-- Donation button (слева) -->
-    <button id="donate-button">Donate</button>
+    <!-- Donation button (по центру) -->
+    <div style="display: flex; justify-content: left;">
+        <button id="donate-button">Donate</button>
+    </div>
 
     <!-- Фоновый затемнитель -->
     <div id="overlay"></div>
